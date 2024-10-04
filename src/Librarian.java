@@ -3,9 +3,11 @@ import java.util.Scanner;
 
 public class Librarian extends Person {
     private ArrayList<Book> managedBooks;
-    public Librarian(String name, int age, String ID, String login, String password, Role role, ArrayList<Book> managedBooks) {
+    private Library library;
+    public Librarian(String name, int age, String ID, String login, String password, Role role, ArrayList<Book> managedBooks,Library library) {
         super(name, age, ID, login, password, role);
         this.managedBooks = managedBooks;
+        this.library=library;
 
 
     }

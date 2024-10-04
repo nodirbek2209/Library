@@ -33,10 +33,10 @@ public class Main {
         books.add(new Book("48 Laws of Power", "Robert Greene", bookId2, true));
 
         // Create persons
-        Admin person1 = new Admin("Nodirbek1", 19, "1", "nodirbek1", "1", Role.Admin);
-        Librarian person2 = new Librarian("Nodirbek2", 19, "2", "nodirbek2", "2", Role.Librarian, books);
+        Admin person1 = new Admin("Nodirbek1", 19, "1", "nodirbek1", "1", Role.Admin,library);
+        Librarian person2 = new Librarian("Nodirbek2", 19, "2", "nodirbek2", "2", Role.Librarian, books,library);
         ArrayList<Book> borrowedBooks = new ArrayList<>();
-        Member person3 = new Member("Nodirbek3", 19, "3", "nodirbek3", "3", Role.Member, borrowedBooks);
+        Member person3 = new Member("Nodirbek3", 19, "3", "nodirbek3", "3", Role.Member, borrowedBooks,library);
 
 
         // Add persons to their respective lists
@@ -83,7 +83,7 @@ public class Main {
                 String password = input.next();
                 for (Admin admin : admins) {
                     if (admin.getLogin().equals(login) && admin.getPassword().equals(password)) {
-                        admin.Control(library);
+                        admin.Control();
                     }else{
                         System.out.println("wrong password or login");
                         menu();
@@ -108,7 +108,7 @@ public class Main {
                 String password = input.next();
                 for (Member member : members) {
                     if (member.getLogin().equals(login) && member.getPassword().equals(password)) {
-                        member.Control(books);
+                        member.Control();
                     }else{
                         System.out.println("wrong password or login");
                         menu();

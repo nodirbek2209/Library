@@ -4,30 +4,32 @@ import java.util.Scanner;
 
 public class Member extends Person {
     private ArrayList<Book> borrowedBooks;
-    public Member(String name, int age, String ID, String login, String password, Role role, ArrayList<Book> borrowedBooks) {
+    private Library library;
+    public Member(String name, int age, String ID, String login, String password, Role role, ArrayList<Book> borrowedBooks,Library library) {
         super(name, age, ID, login, password, role);
         this.borrowedBooks=borrowedBooks;
+        this.library=library;
     }
-    public void borrowBook(ArrayList<Book> books) {
+    public void borrowBook() {
         Scanner input=new Scanner(System.in);
         System.out.println("enter bookID");
         String bookID=input.nextLine();
-        for(Book book:books){
+        for(Book book:library.getBooks()){
             if (book.getBookID().equals(bookID)) {
                 book.borrowBook();
                 borrowedBooks.add(book);
-                Control(books);
+                Control();
             }
 
         }
         System.out.println("book with id doesn't exist ");
-        Control(books);
+        Control();
 
 
 
     }
 
-    public void returnBook(ArrayList<Book> books) {
+    public void returnBook() {
         Scanner input=new Scanner(System.in);
         System.out.println("enter bookID");
         String bookID=input.nextLine();
@@ -37,7 +39,7 @@ public class Member extends Person {
                 book.returnBook();
                 borrowedBooks.remove(book);
 
-                Control(books);
+                Control();
             }
         }
         System.out.println("book with id doesn't exist in the borrowed list ");
@@ -48,7 +50,7 @@ public class Member extends Person {
         borrowedBooks.add(book);
 
     }
-    public void Control(ArrayList<Book> books) {
+    public void Control() {
         System.out.println("you are logged in as member");
         System.out.println("choose only numbers!");
         System.out.println("1 Borrow Book");
@@ -59,9 +61,9 @@ public class Member extends Person {
         try{
             int choice=input.nextInt();
             if(choice==1){
-                borrowBook(books);
+                borrowBook();
             }else if(choice==2){
-                returnBook(books);
+                returnBook();
 
             }else if(choice==3){
                 for(Book book:getBorrowedBooks()){
@@ -71,7 +73,7 @@ public class Member extends Person {
                 }
 
                 System.out.println("Borrowed books number:"+borrowedBooks.size());
-                Control(books);
+                Control();
             }else if(choice==4){
                 Main.menu();
             }
@@ -79,7 +81,7 @@ public class Member extends Person {
 
         }catch(InputMismatchException e){
             System.out.println("Please enter a valid number");
-            Control(books);
+            Control();
                 }
 
         }

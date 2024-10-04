@@ -4,11 +4,12 @@ import java.util.Scanner;
 
 public class Admin extends Person {
 
-
-    public Admin(String name, int age, String ID, String login, String password, Role role) {
+    private Library library;
+    public Admin(String name, int age, String ID, String login, String password, Role role,Library library) {
         super(name, age, ID, login, password, role);
+        this.library=library;
     }
-    public void addMember(Library library) {
+    public void addMember() {
         Scanner in = new Scanner(System.in);
         System.out.println("enter name of member:");
         String name=in.nextLine();
@@ -22,14 +23,14 @@ public class Admin extends Person {
         String password=in.nextLine();
 
         ArrayList<Book> borrowedBooks = new ArrayList<>();
-        Member newmember= new Member(name,age,ID,login,password,Role.Member,borrowedBooks);
+        Member newmember= new Member(name,age,ID,login,password,Role.Member,borrowedBooks,library);
         library.getMembers().add(newmember);
         System.out.println("new member added");
-        Control(library);
+        Control();
 
 
     }
-    public void removeMember(Library library) {
+    public void removeMember() {
         Scanner in = new Scanner(System.in);
         System.out.println("enter id of member:");
         String ID=in.nextLine();
@@ -37,21 +38,21 @@ public class Admin extends Person {
             if(member.getID().equals(ID)) {
                 library.getMembers().remove(member);
                 System.out.println("removed member");
-                Control(library);
+                Control();
             }
         }
         System.out.println("member not found");
-        Control(library);
+        Control();
     }
-    public void viewMembers(Library library) {
+    public void viewMembers() {
         for(Member member : library.getMembers()) {
             member.display();
             System.out.println("\n");
         }
-        Control(library);
+        Control();
 
     }
-    public void addLibrarian(Library library) {
+    public void addLibrarian() {
         Scanner in = new Scanner(System.in);
         System.out.println("enter name of librarian:");
         String name=in.nextLine();
@@ -65,13 +66,13 @@ public class Admin extends Person {
         String password=in.nextLine();
 
 
-        Librarian newlibrarian=new Librarian(name,age,ID,login,password,Role.Librarian,library.getBooks());
+        Librarian newlibrarian=new Librarian(name,age,ID,login,password,Role.Librarian,library.getBooks(),library);
         library.getLibrarians().add(newlibrarian);
         System.out.println("new librarian added");
-        Control(library);
+        Control();
 
     }
-    public void removeLibrarian(Library library) {
+    public void removeLibrarian() {
         Scanner in = new Scanner(System.in);
         System.out.println("enter id of librarian:");
         String ID=in.nextLine();
@@ -79,20 +80,20 @@ public class Admin extends Person {
             if(librarian.getID().equals(ID)) {
                 library.getLibrarians().remove(librarian);
                 System.out.println("removed member");
-                Control(library);
+                Control();
             }
         }
         System.out.println("librarian not found");
-        Control(library);
+        Control();
     }
-    public void viewLibrarians(Library library) {
+    public void viewLibrarians() {
         for(Librarian librarian : library.getLibrarians()) {
             librarian.display();
             System.out.println("\n");
         }
-        Control(library);
+        Control();
     }
-    public void addAdministrator(Library library) {
+    public void addAdministrator() {
         Scanner in = new Scanner(System.in);
         System.out.println("enter name of administrator:");
         String name=in.nextLine();
@@ -104,13 +105,13 @@ public class Admin extends Person {
         String login=in.nextLine();
         System.out.println("enter password of administrator:");
         String password=in.nextLine();
-        Admin newadmin= new Admin(name,age,ID,login,password,Role.Admin);
+        Admin newadmin= new Admin(name,age,ID,login,password,Role.Admin,library);
         library.getAdmins().add(newadmin);
         System.out.println("new admin added");
-        Control(library);
+        Control();
     }
 
-    public void Control(Library library){
+    public void Control(){
         System.out.println("you are logged in as admin");
         System.out.println("choose only numbers!");
         System.out.println("1 : add member");
@@ -127,27 +128,27 @@ public class Admin extends Person {
         try{
             int choice = input.nextInt();
             if (choice == 1){
-                addMember(library);
+                addMember();
             }else if (choice == 2){
-                removeMember(library);
+                removeMember();
             }else if (choice == 3){
-                viewMembers(library);
+                viewMembers();
             }else if (choice == 4){
-                addLibrarian(library);
+                addLibrarian();
             }else if (choice == 5){
-                removeLibrarian(library);
+                removeLibrarian();
             }else if (choice == 6){
-                viewLibrarians(library);
+                viewLibrarians();
 
             }else if(choice == 7){
-                addAdministrator(library);
+                addAdministrator();
             }
 
 
 
         }catch(InputMismatchException e){
             System.out.println("wrong input");
-            Control(library);
+            Control();
 
         }
     }
